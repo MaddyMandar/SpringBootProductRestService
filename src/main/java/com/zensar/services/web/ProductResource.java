@@ -3,6 +3,7 @@ package com.zensar.services.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.zensar.entities.Product;
 import com.zensar.spring.services.ProductService;
 
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @RestController
 @RequestMapping("/Products")
 public class ProductResource {
@@ -34,19 +36,33 @@ public class ProductResource {
 		return service.findbyProductId(productId);
 	}
 	
+//	@PostMapping
+//	public String createProduct(@RequestParam("id") int productId, 
+//			@RequestParam("name") String name,
+//			@RequestParam("brand") String brand,
+//			@RequestParam("price") float price
+//			) {
+//		
+//		Product product = new Product(productId,name,brand,price);
+//		System.out.println(product);
+//		service.create(product);
+//		
+//		
+//		
+//		return "Product "+productId+ " created successfully";
+//		
+//	}
+	
 	@PostMapping
-	public String createProduct(@RequestParam("id") int productId, 
-			@RequestParam("name") String name,
-			@RequestParam("brand") String brand,
-			@RequestParam("price") float price
-			) {
+	public String createProduct(@RequestBody Product product) {
 		
-		Product product = new Product(productId,name,brand,price);
+		
+		System.out.println(product);
 		service.create(product);
 		
 		
 		
-		return "Product "+productId+ " created successfully";
+		return "Product "+product.getProductId()+ " created successfully";
 		
 	}
 	
